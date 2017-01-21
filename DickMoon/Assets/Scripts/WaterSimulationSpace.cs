@@ -14,8 +14,8 @@ public class WaterSimulationSpace : MonoBehaviour
 
     private Vector2 _gridCellSize = new Vector2();
     private ParticleSystem.Particle[] _particleBuff;
-    private Vector3[] _pressureGrid;
-    private int[] _numParticlesInGrid;
+    private Vector3[,] _pressureGrid;
+    private int[,] _numParticlesInGrid;
 
     protected void Start()
     {
@@ -26,14 +26,18 @@ public class WaterSimulationSpace : MonoBehaviour
         int gridY = (int)( gridArea.height / _gridCellSize.y );
 
         _particleBuff = new ParticleSystem.Particle[ waterParticleView.maxParticles ];
-        _pressureGrid = new Vector3[ gridX * gridY ];
-        _numParticlesInGrid = new int[ gridX * gridY ];
+        _pressureGrid = new Vector3[ gridX, gridY ];
+        _numParticlesInGrid = new int[ gridX, gridY ];
 
-        for( int i = 0, _pressureGridLength = _pressureGrid.Length; i < _pressureGridLength; i++ )
+        Vector3 cog = centerOfGravity.position;
+
+        for (int y = 0; y != gridY; ++y)
         {
-            Vector3 pressure = _pressureGrid[ i ];
-            pressure = Random.onUnitSphere;
-            _pressureGrid[ i ] = pressure;
+            for (int x = 0; x != gridX; ++x)
+            {
+                Vector3 pressure = Vector3.zero;
+                _pressureGrid[x,y] = pressure.normalized;
+            }
         }
     }
 
@@ -74,8 +78,10 @@ public class WaterSimulationSpace : MonoBehaviour
     {
         int gridX = (int)(gridArea.width / _gridCellSize.x);
         int gridY = (int)(gridArea.height / _gridCellSize.y);
-        int pad = 3;
+        int pad = 6;
+
         System.Array.Clear(_numParticlesInGrid, 0, gridX * gridY);
+
         for (int y = 0; y != gridY; ++y)
         {
             for (int x = 0; x != gridX; ++x)
@@ -92,7 +98,7 @@ public class WaterSimulationSpace : MonoBehaviour
                     value = 0;
                 }
 
-                _numParticlesInGrid[index] = value;
+                _numParticlesInGrid[x,y] = value;
             }
         }
     }
@@ -107,41 +113,51 @@ public class WaterSimulationSpace : MonoBehaviour
 
         ResetGrid();
 
+        Transform t = waterParticleView.transform;
+
         int numParticles = waterParticleView.GetParticles( _particleBuff );
 
         for( int i = 0; i != numParticles; i++ )
         {
             ParticleSystem.Particle p = _particleBuff[ i ];
 
-            Vector3 pos = p.position;
-            Vector3 dir = gravity;  //cog - pos;
-            Vector3 vel = dir;//Vector3.Normalize( dir );
+            Vector3 pos = (p.position);
+            Vector3 dir = cog - pos;
+            Vector3 vel = Vector3.Normalize( dir );
 
             int x, y;
             int index = GetIndex( pos, out x, out y );
             if( index < 0 )
             {
                 index = 0;
+                p.lifetime = -1;
+                _particleBuff[i] = p;
+
+                continue;
             }
             else if( index >= _numParticlesInGrid.Length )
             {
                 index = _numParticlesInGrid.Length - 1;
+                p.lifetime = -1;
+                _particleBuff[i] = p;
+
+                continue;
             }
 
-            if(_numParticlesInGrid[ index ] < 0 )
+            if (_numParticlesInGrid[ x,y ] < 0 )
             {
-
+                vel = Vector3.zero;
             }
-            else if( _numParticlesInGrid[ index ] == maxParticlesPerCell )
+            else if( _numParticlesInGrid[x, y] == maxParticlesPerCell )
             {
                 //Vector3 pressureDir = _pressureGrid[ index ];
                 //int pressue = _numParticlesInGrid[ index ];
 
-                vel += _pressureGrid[ index ] * 5;
+                vel += _pressureGrid[x, y] * 5;
             }
             else
             {
-                _numParticlesInGrid[ index ]++;
+                _numParticlesInGrid[x, y]++;
             }
 
             p.velocity = vel;// + gravity;
@@ -208,10 +224,10 @@ public class WaterSimulationSpace : MonoBehaviour
                     Vector3 centerPos = new Vector3( ( x * _gridCellSize.x ) + gridArea.x + ( 0.5f * _gridCellSize.x ), ( y * _gridCellSize.y ) + gridArea.y + ( 0.5f * _gridCellSize.y ), 0 ) + pos;
 
                     Gizmos.color = Color.red;
-                    Gizmos.DrawLine( centerPos, centerPos + _pressureGrid[ index ] * 5 );
+                    Gizmos.DrawLine( centerPos, centerPos + _pressureGrid[x, y] * 5 );
                     //imm.AddLine(centerPos, centerPos + _pressureGrid[index] * 5, Color.red);
 
-                    int value = _numParticlesInGrid[index];
+                    int value = _numParticlesInGrid[x, y];
                     if( value < 0 )
                     {
                         Gizmos.color = Color.black;
