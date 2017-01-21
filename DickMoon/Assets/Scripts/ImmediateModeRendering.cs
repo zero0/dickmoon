@@ -203,7 +203,7 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void BeginImmediateDraw( ImmediateModeRenderingTopology topology, ImmediateModeRenderingVertexFormat vertexFormat, Material material = null )
     {
-        DebugUtils.Assert( _currentCommandIndex == -1, "Rendering Command already in progress" );
+        Assert( _currentCommandIndex == -1, "Rendering Command already in progress" );
 
         _currentCommandIndex = _commands.Count;
 
@@ -230,7 +230,7 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void BeginImmediateOrthoDraw( ImmediateModeRenderingTopology topology, ImmediateModeRenderingVertexFormat vertexFormat, Material material = null )
     {
-        DebugUtils.Assert( _currentCommandIndex == -1, "Rendering Command already in progress" );
+        Assert( _currentCommandIndex == -1, "Rendering Command already in progress" );
 
         _currentCommandIndex = _commands.Count;
 
@@ -257,7 +257,7 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void BeginImmediateText( string fontName )
     {
-        DebugUtils.Assert( _currentCommandIndex == -1, "Rendering Command already in progress" );
+        Assert( _currentCommandIndex == -1, "Rendering Command already in progress" );
 
         _currentCommandIndex = _commands.Count;
 
@@ -286,13 +286,13 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void SetMatrix( Matrix4x4 matrix )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started to set matrix" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started to set matrix" );
         _commands[ _currentCommandIndex ].matrix = matrix;
     }
 
     public void SetTRS( Vector3 pos, Quaternion rot, Vector3 scale )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started to set matrix" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started to set matrix" );
         _commands[ _currentCommandIndex ].matrix = Matrix4x4.TRS( pos, rot, scale );
     }
 
@@ -303,12 +303,12 @@ public class ImmediateModeRendering : MonoBehaviour
 
         if( string.IsNullOrEmpty( text ) ) return;
 
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
 
         Font font = cmd.font;
-        DebugUtils.Assert( font != null, "Missing Font" );
+        Assert( font != null, "Missing Font" );
 
         font.RequestCharactersInTexture( text );
 
@@ -348,14 +348,14 @@ public class ImmediateModeRendering : MonoBehaviour
     {
         if( string.IsNullOrEmpty( text ) ) return;
 
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColorUV, "Incorrect vertex format" );
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColorUV, "Incorrect vertex format" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
 
         Font font = cmd.font;
-        DebugUtils.Assert( font != null, "Missing Font" );
+        Assert( font != null, "Missing Font" );
 
         font.RequestCharactersInTexture( text );
 
@@ -413,10 +413,10 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddVertex( Vector3 vert, Color color )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
 
         AddVertexData( color );
         AddVertexData( vert );
@@ -426,10 +426,10 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddVertex( Vector3 vert, Color color, Vector2 uv )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColorUV, "Incorrect vertex format" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColorUV, "Incorrect vertex format" );
 
         AddVertexData( uv );
         AddVertexData( color );
@@ -440,11 +440,11 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddLine( Vector3 vert0, Vector3 vert1, Color color )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Line, "Incorrect Topology" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Line, "Incorrect Topology" );
 
         AddVertexData( color );
         AddVertexData( vert0 );
@@ -461,11 +461,11 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddLine( Vector3 vert0, Color color0, Vector3 vert1, Color color1 )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Line, "Incorrect Topology" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Line, "Incorrect Topology" );
 
         AddVertexData( color0 );
         AddVertexData( vert0 );
@@ -482,10 +482,10 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddLineIndex( int index0, int index1 )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Line, "Incorrect Topology" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Line, "Incorrect Topology" );
 
         _indexBuffer.Add( index0 );
         _indexBuffer.Add( index1 );
@@ -495,10 +495,10 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddTriangleIndex( int index0, int index1, int index2 )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
 
         _indexBuffer.Add( index0 );
         _indexBuffer.Add( index1 );
@@ -509,10 +509,10 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddQuadIndex( int index0, int index1, int index2, int index3 )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
 
         _indexBuffer.Add( index0 );
         _indexBuffer.Add( index1 );
@@ -527,11 +527,11 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddQuad( Vector3 vert0, Vector3 vert1, Vector3 vert2, Vector3 vert3, Color color )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
 
         AddVertexData( color );
         AddVertexData( vert0 );
@@ -559,11 +559,11 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddQuad( Vector3 vert0, Color color0, Vector3 vert1, Color color1, Vector3 vert2, Color color2, Vector3 vert3, Color color3 )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColor, "Incorrect vertex format" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
 
         AddVertexData( color0 );
         AddVertexData( vert0 );
@@ -591,11 +591,11 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void AddQuad( Vector3 vert0, Color color0, Vector2 uv0, Vector3 vert1, Color color1, Vector2 uv1, Vector3 vert2, Color color2, Vector2 uv2, Vector3 vert3, Color color3, Vector2 uv3 )
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
-        DebugUtils.Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColorUV, "Incorrect vertex format" );
-        DebugUtils.Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
+        Assert( cmd.vertexFormat == ImmediateModeRenderingVertexFormat.VertexColorUV, "Incorrect vertex format" );
+        Assert( cmd.topology == ImmediateModeRenderingTopology.Triangle, "Incorrect Topology" );
 
         AddVertexData( uv0 );
         AddVertexData( color0 );
@@ -627,7 +627,7 @@ public class ImmediateModeRendering : MonoBehaviour
 
     public void EndImmediate()
     {
-        DebugUtils.Assert( _currentCommandIndex != -1, "Rendering Command not started" );
+        Assert( _currentCommandIndex != -1, "Rendering Command not started" );
 
         ImmediateModeRenderingCommand cmd = _commands[ _currentCommandIndex ];
         cmd.vertexOffset = _vertexSize;
@@ -670,5 +670,10 @@ public class ImmediateModeRendering : MonoBehaviour
         }
 
         return DefaultBlitMaterial;
+    }
+
+    private void Assert( bool test, string msg )
+    {
+
     }
 }
