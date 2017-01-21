@@ -3,9 +3,9 @@ using System.Collections;
 
 public class MoonController : MonoBehaviour
 {
-	public static readonly float MAX_HEIGHT = 652f;
-	public static readonly float MIN_HEIGHT = -180f;
-	public static readonly float MAX_VERTICAL_SPEED = 1000f;
+	public static readonly float MAX_HEIGHT = 300f;
+	public static readonly float MIN_HEIGHT = 100f;
+	public static readonly float MAX_VERTICAL_SPEED = 200f;
 	public static readonly float LERP_TIME = 0.4f;
 
 	protected float speed;
