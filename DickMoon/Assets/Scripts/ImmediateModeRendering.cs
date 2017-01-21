@@ -664,7 +664,7 @@ public class ImmediateModeRendering : MonoBehaviour
     {
         if( DefaultBlitMaterial == null )
         {
-            DefaultBlitMaterial = new Material( Shader.Find( "Unlit/Transparent Colored" ) );
+            DefaultBlitMaterial = new Material(Shader.Find("Unlit/Transparent Colored" ) );
             DefaultBlitMaterial.hideFlags = HideFlags.HideAndDontSave;
             DefaultBlitMaterial.shader.hideFlags = HideFlags.HideAndDontSave;
         }
