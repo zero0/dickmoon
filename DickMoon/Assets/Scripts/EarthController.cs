@@ -7,6 +7,6 @@ public class EarthController : MonoBehaviour
 
 	public void Update()
 	{
-		transform.rotation = Quaternion.Euler(0f, 0f, ROTATION_RATE * Time.timeSinceLevelLoad);
+		transform.Rotate(0f, 0f, ROTATION_RATE * Time.deltaTime);
 	}
 }

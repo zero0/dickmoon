@@ -75,16 +75,7 @@ public class ChunkLoader : MonoBehaviour
 		for (int i = 0; i < SPAWNS_BEFORE_CLEANUP; i++)
 		{
 			Spawn();
-			EarthRoot.transform.Rotate(0f, 0f, -ANGLE_BETWEEN_CHUNKS);
-		}
-		Stack<Transform> reverseOrder = new Stack<Transform>();
-		while (cleanupQueue.Count > 0)
-		{
-			reverseOrder.Push(cleanupQueue.Dequeue());
-		}
-		while (reverseOrder.Count > 0)
-		{
-			cleanupQueue.Enqueue(reverseOrder.Pop());
+			EarthRoot.transform.Rotate(0f, 0f, ANGLE_BETWEEN_CHUNKS);
 		}
 		EarthRoot.transform.Rotate(0f, 0f, -ANGLE_BETWEEN_CHUNKS);
 		angleAtLastPlace = EarthRoot.transform.rotation;
