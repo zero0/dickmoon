@@ -39,7 +39,6 @@ public class WaveManager : MonoBehaviour
 
         WaveController w1 = go1.GetComponent<WaveController>();
         w1.center = pivot;
-        w1.lifetime = lifetime;
         w1.waveHeight = waveHeight;
         w1.speed = speed;
     }

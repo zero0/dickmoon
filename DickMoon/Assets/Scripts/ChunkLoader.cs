@@ -13,6 +13,8 @@ public class ChunkLoader : MonoBehaviour
 {
 	public static readonly float ANGLE_BETWEEN_CHUNKS = Mathf.PI / 12f * Mathf.Rad2Deg;
 	public static readonly int SPAWNS_BEFORE_CLEANUP = 15;
+	public static readonly float WATER_CHANCE = 0.45f;
+	public static readonly float BUILDING_CHANCE = 0.8f;
 
 	public Transform EarthRoot;
 	public Transform ReferencePoint;
@@ -43,9 +45,14 @@ public class ChunkLoader : MonoBehaviour
 
 	public void Spawn()
 	{
-		int landIndex = UnityEngine.Random.Range(0, LandChunks.Length);
+		int landIndex = UnityEngine.Random.Range(0, LandChunks.Length - 1);
 		int markIndex = UnityEngine.Random.Range(1, Landmarks.Length);
-		if (landIndex == 2)
+		if (UnityEngine.Random.Range(0f, 1f) < WATER_CHANCE)
+		{
+			landIndex = 2;
+			markIndex = 0;
+		}
+		if (UnityEngine.Random.Range(0f, 1f) > BUILDING_CHANCE)
 		{
 			markIndex = 0;
 		}
