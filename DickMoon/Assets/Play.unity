@@ -1052,6 +1052,7 @@ MonoBehaviour:
   - Prefab: {fileID: 128478, guid: 66ceb4c2b53ff4ba9beb52dda07125f4, type: 2}
   - Prefab: {fileID: 128478, guid: 15ae50472e86b4174a199f30326572ba, type: 2}
   - Prefab: {fileID: 128478, guid: fb935c26eab134444bd58daa5dfe40f8, type: 2}
+  - Prefab: {fileID: 128478, guid: 323e8d587a3c14613985ab54a76dfe55, type: 2}
   Landmarks:
   - Prefab: {fileID: 130938, guid: bd4d463f798b34af19e9aa5b3ddee43b, type: 2}
   - Prefab: {fileID: 121122, guid: 4d90eb738a3964cc48e60ee5103ee232, type: 2}
