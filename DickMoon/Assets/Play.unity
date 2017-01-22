@@ -180,7 +180,7 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 602, y: -225}
+  m_AnchoredPosition: {x: 0, y: -200}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &328867517
@@ -210,9 +210,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 50, y: -100}
+  m_Offset: {x: 3.1, y: -164.4}
   serializedVersion: 2
-  m_Size: {x: 300, y: 300}
+  m_Size: {x: 202.32, y: 440.9}
 --- !u!50 &328867519
 Rigidbody2D:
   serializedVersion: 2
