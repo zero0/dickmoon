@@ -41,7 +41,7 @@ public class ChunkLoader : MonoBehaviour
 			int markIndex = UnityEngine.Random.Range(0, Landmarks.Length);
 			if (landIndex == 2)
 			{
-				markIndex = 6;
+				markIndex = 0;
 			}
 
 			Spawn(LandChunks[landIndex]);

@@ -21,9 +21,9 @@ public class MoonController : MonoBehaviour
 			targetHeight = MIN_HEIGHT;
 		}
 
-		Vector3 position = transform.position;
+		Vector3 position = transform.localPosition;
 		position.y = Mathf.SmoothDamp(position.y, targetHeight, ref speed, LERP_TIME, MAX_VERTICAL_SPEED);
-		transform.position = position;
+		transform.localPosition = position;
 
         //transform.position = Vector3.SmoothDamp(position, targetHeight * Vector3.one, ref _vel, MAX_VERTICAL_SPEED);
 	}
