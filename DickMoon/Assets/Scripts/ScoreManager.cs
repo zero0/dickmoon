@@ -7,20 +7,31 @@ public class ScoreManager : MonoBehaviour
     public static readonly float READ_TIME = 1.3f;
     public static readonly float LOG_BASE = 8; // Higher means slower speed ramp
     
-    public static int Score { get { return instance._score; } set { instance._score = value; } }
+    public static int Score { get { return _score; } set { _score = value; } }
 
-    private int _score;
-    private int _nextScore;
+    private static int _score;
+    private static int _nextScore;
 
     public static float speedMultiplier
     {
         get
         {
-            return Mathf.Log(Mathf.Max(instance._nextScore / 1000f, 0f) + LOG_BASE) / Mathf.Log(LOG_BASE);
+            return Mathf.Log(Mathf.Max(_nextScore / 1000f, 0f) + LOG_BASE) / Mathf.Log(LOG_BASE);
         }
     }
 
-    protected static ScoreManager instance;
+    private static ScoreManager _instance = null;
+    protected static ScoreManager instance
+    {
+        get
+        {
+            if( _instance == null )
+            {
+                _instance = FindObjectOfType< ScoreManager >();
+            }
+            return _instance;
+        }
+    }
     
     public FlyupView FlyupPrefab;
     public Text ScorePanel;
@@ -31,16 +42,20 @@ public class ScoreManager : MonoBehaviour
 
     public void Start()
     {
-        instance = this;
+        ScorePanel.text = "0";
         ClearScore();
         SetNotificationText( "Click to make waves");
     }
 
+    public void OnDestroy()
+    {
+        _instance = null;
+    }
+
     public static void ClearScore()
     {
-        instance._score = 0;
-        instance._nextScore = 0;
-        instance.ScorePanel.text = "0";
+        _score = 0;
+        _nextScore = 0;
     }
 
     public static int MakeScore(int score, string notifText)
@@ -51,7 +66,7 @@ public class ScoreManager : MonoBehaviour
         }
 
         int scaledScore = Mathf.CeilToInt(score * Time.timeScale);
-        instance._nextScore += scaledScore;
+        _nextScore += scaledScore;
 
         instance.SetNotificationText( notifText );
 
