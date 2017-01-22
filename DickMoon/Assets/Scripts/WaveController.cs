@@ -16,22 +16,28 @@ public class WaveController : MonoBehaviour
 
     private int _currentFrame;
     private float _frameTimer;
+    private float _fullAnimTime;
 
     protected void Start()
     {
         _currentFrame = 0;
         _frameTimer = 0f;
+        _fullAnimTime = waveAnimFrameRate / (float)waveSprites.Length;
     }
 
     protected void Update()
     {
-        _frameTimer += Time.deltaTime * waveAnimFrameRate;
-
-        int frame = Mathf.FloorToInt( _frameTimer );
-        if( _currentFrame != frame )
+        if( waveAnimFrameRate > 0 )
         {
-            _currentFrame = frame % waveSprites.Length;
-            waveImage.sprite = waveSprites[ _currentFrame ];
+            _frameTimer += Time.deltaTime;
+
+            float framePercent = _frameTimer / _fullAnimTime;
+            int frame = Mathf.Clamp( Mathf.FloorToInt( ( framePercent * (float)waveSprites.Length ) ), 0, waveSprites.Length - 1 );
+            if( _currentFrame != frame )
+            {
+                _currentFrame = frame;
+                waveImage.sprite = waveSprites[ _currentFrame ];
+            }
         }
 
         if (center != null)
@@ -48,7 +54,7 @@ public class WaveController : MonoBehaviour
         	waveHeight -= heightDecayOverTime * Time.deltaTime;
 		}
 
-        transform.localScale = Vector3.one * Mathf.Max(0, waveHeight);
+        transform.localScale = Vector3.one * Mathf.Clamp( waveHeight, 0, 2);
 
         if( waveHeight < 0 )
         {
