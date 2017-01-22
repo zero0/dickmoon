@@ -18,6 +18,7 @@ public class ChunkLoader : MonoBehaviour
 
 	public Transform EarthRoot;
 	public Transform ReferencePoint;
+	public Spawnable[] WaterChunks;
 	public Spawnable[] LandChunks;
 	public Spawnable[] Landmarks;
 
@@ -47,17 +48,22 @@ public class ChunkLoader : MonoBehaviour
 	{
 		int landIndex = UnityEngine.Random.Range(0, LandChunks.Length - 1);
 		int markIndex = UnityEngine.Random.Range(1, Landmarks.Length);
+		Spawnable wedge;
 		if (UnityEngine.Random.Range(0f, 1f) < WATER_CHANCE)
 		{
-			landIndex = 2;
+			wedge = WaterChunks[UnityEngine.Random.Range(0, WaterChunks.Length)];
 			markIndex = 0;
+		}
+		else
+		{
+			wedge = LandChunks[UnityEngine.Random.Range(0, LandChunks.Length)];
 		}
 		if (UnityEngine.Random.Range(0f, 1f) > BUILDING_CHANCE)
 		{
 			markIndex = 0;
 		}
 
-		Spawn(LandChunks[landIndex]);
+		Spawn(wedge);
 		Spawn(Landmarks[markIndex]);
 		angleAtLastPlace = EarthRoot.rotation;
 
