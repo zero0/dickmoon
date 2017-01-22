@@ -15,10 +15,11 @@ public class MonumentController : MonoBehaviour
 
         //if( health <= 0 )
         //{
-			WaveSound.Play();
-            transform.Rotate( 0, 0, -80 );
-            GetComponent< BoxCollider2D >().enabled = false;
-			ScoreManager.MakeScore(score, Random.Range(0f, 1f) < SHOUT_LIKELINESS ? destroyText : "");
+		WaveSound.Play();
+        transform.Rotate( 0, 0, -80 );
+        GetComponent< BoxCollider2D >().enabled = false;
+		int scaledScore = ScoreManager.MakeScore(score, Random.Range(0f, 1f) < SHOUT_LIKELINESS ? destroyText : "");
+        ScoreManager.ShowFlyUpScore( scaledScore, transform.position + Vector3.up * 300f );
         //}
     }
 }
