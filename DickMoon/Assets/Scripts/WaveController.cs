@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class WaveController : MonoBehaviour
@@ -9,9 +10,30 @@ public class WaveController : MonoBehaviour
 	public float decayDelay = 0.3f;
     public float heightDecayOverTime = 0;
     public Transform center = null;
+    public Image waveImage;
+    public Sprite[] waveSprites;
+    public float waveAnimFrameRate;
+
+    private int _currentFrame;
+    private float _frameTimer;
+
+    protected void Start()
+    {
+        _currentFrame = 0;
+        _frameTimer = 0f;
+    }
 
     protected void Update()
     {
+        _frameTimer += Time.deltaTime * waveAnimFrameRate;
+
+        int frame = Mathf.FloorToInt( _frameTimer );
+        if( _currentFrame != frame )
+        {
+            _currentFrame = frame % waveSprites.Length;
+            waveImage.sprite = waveSprites[ _currentFrame ];
+        }
+
         if (center != null)
         {
             Vector3 dir = Vector3.Normalize(center.position - transform.position);
