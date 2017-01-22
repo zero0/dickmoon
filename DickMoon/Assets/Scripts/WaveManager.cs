@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class WaveManager : MonoBehaviour
@@ -9,7 +9,8 @@ public class WaveManager : MonoBehaviour
     public Transform moon;
     public ChunkLoader chunkLoader;
 
-    private float _waveSpawnTimer;
+    private float _waveSpawnTimer = 0;
+    private bool _canFireWave = false;
 
     public bool SpawnWave( Vector3 position, Transform pivot, float speed, float lifetime, float waveHeight, bool bothDirections )
     {
@@ -50,13 +51,12 @@ public class WaveManager : MonoBehaviour
             _waveSpawnTimer -= Time.deltaTime;
         }
 
-		if( Input.GetMouseButtonDown(0) )
-		{
-            //Vector3 p, n;
-            //if( TryMoonPlanetIntersection( moon.transform.position, moon.transform.right, waveCenter.position, 3000, out p, out n ) )
-            //{
+        if( Input.GetMouseButtonDown(0) )
+        {
+            if( _canFireWave )
+            {
                 SpawnWave( transform.position, waveCenter, 300, 2, 4, false);
-            //}
+            }
         }
     }
 
@@ -139,5 +139,15 @@ public class WaveManager : MonoBehaviour
         //intersectionNormal = i / planetRadius;
 
         return true;
+    }
+
+    void OnTriggerEnter2D(Collider2D coll)
+    {
+        _canFireWave = true;
+    }
+
+    void OnTriggerExit2D(Collider2D coll)
+    {
+        _canFireWave = false;
     }
 }

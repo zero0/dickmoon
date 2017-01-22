@@ -156,7 +156,9 @@ GameObject:
   m_Component:
   - 224: {fileID: 328867516}
   - 114: {fileID: 328867517}
-  m_Layer: 5
+  - 61: {fileID: 328867518}
+  - 50: {fileID: 328867519}
+  m_Layer: 4
   m_Name: WaveManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -193,9 +195,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wavePrefab: {fileID: 1000012887815224, guid: 9c6930e3c8840de4aa8e687174765c2f, type: 2}
-  waveSpawnDelay: 1
+  waveSpawnDelay: 0.5
   waveCenter: {fileID: 1079553925}
   moon: {fileID: 2050144058}
+  chunkLoader: {fileID: 1079553927}
+--- !u!61 &328867518
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 328867515}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 50, y: -100}
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300}
+--- !u!50 &328867519
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 328867515}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &342463169
 GameObject:
   m_ObjectHideFlags: 0
