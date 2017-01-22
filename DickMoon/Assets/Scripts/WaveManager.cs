@@ -28,8 +28,10 @@ public class WaveManager : MonoBehaviour
 
         w1.center = pivot;
         w2.center = pivot;
+
         w1.lifetime = lifetime;
         w2.lifetime = lifetime;
+
         w1.waveHeight = waveHeight;
         w2.waveHeight = waveHeight;
 

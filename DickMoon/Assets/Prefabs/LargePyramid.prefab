@@ -11,7 +11,7 @@ GameObject:
   - 222: {fileID: 22225906}
   - 114: {fileID: 114000010035446164}
   - 61: {fileID: 61000010032032034}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: LargePyramid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ GameObject:
   - 224: {fileID: 22451724}
   - 222: {fileID: 22256940}
   - 114: {fileID: 11481978}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
