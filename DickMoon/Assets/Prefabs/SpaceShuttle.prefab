@@ -73,6 +73,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba2d5fa9825f63241bda5e4a0d51f70f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SadMoon: {fileID: 21300000, guid: 6ee206f38fb0a4d24af9a8f4d66b76b5, type: 3}
 --- !u!222 &22225906
 CanvasRenderer:
   m_ObjectHideFlags: 1

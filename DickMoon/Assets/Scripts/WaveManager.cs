@@ -50,7 +50,7 @@ public class WaveManager : MonoBehaviour
             _waveSpawnTimer -= Time.deltaTime;
         }
 
-        if( Input.GetMouseButtonDown(0) )
+		if( Input.GetMouseButtonUp(0) )
         {
 			if( _waterRefCount > 0 )
             {

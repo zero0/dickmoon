@@ -11,12 +11,12 @@ public class MonumentController : MonoBehaviour
     {
         health -= waveHeight;
 
-        if( health <= 0 )
-        {
+        //if( health <= 0 )
+        //{
 			WaveSound.Play();
             transform.Rotate( 0, 0, -80 );
             GetComponent< BoxCollider2D >().enabled = false;
             ScoreManager.MakeScore(score, destroyText);
-        }
+        //}
     }
 }
