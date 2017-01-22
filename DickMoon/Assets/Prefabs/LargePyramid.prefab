@@ -26,6 +26,7 @@ GameObject:
   - 224: {fileID: 22451724}
   - 222: {fileID: 22256940}
   - 114: {fileID: 11481978}
+  - 61: {fileID: 61000011550436348}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -120,3 +121,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 121122}
   m_IsPrefabParent: 1
+--- !u!61 &61000011550436348
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 174280}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 400, y: 400}
