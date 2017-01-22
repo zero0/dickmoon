@@ -671,10 +671,10 @@ MonoBehaviour:
   EarthRoot: {fileID: 1079553925}
   ReferencePoint: {fileID: 1503006322}
   LandChunks:
-  - Prefab: {fileID: 125528, guid: 7303b8cedaea5412d856a6c8b45a7bf9, type: 2}
+  - Prefab: {fileID: 128478, guid: 66ceb4c2b53ff4ba9beb52dda07125f4, type: 2}
   Landmarks:
   - Prefab: {fileID: 121122, guid: b4979a88d452245ff8f0de1a96f611ed, type: 2}
-  - Prefab: {fileID: 121122, guid: b1f2abe4c3e72e049b9260eeef0f21d9, type: 2}
+  - Prefab: {fileID: 121122, guid: 4d90eb738a3964cc48e60ee5103ee232, type: 2}
 --- !u!1 &1169166548
 GameObject:
   m_ObjectHideFlags: 0

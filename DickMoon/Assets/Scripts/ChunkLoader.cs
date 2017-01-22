@@ -37,8 +37,8 @@ public class ChunkLoader : MonoBehaviour
 	{
 		if (Quaternion.Angle(angleAtLastPlace, EarthRoot.rotation) > ANGLE_BETWEEN_CHUNKS)
 		{
-			int landIndex = UnityEngine.Random.Range(0, 3);
-			int markIndex = UnityEngine.Random.Range(0, 6);
+			int landIndex = UnityEngine.Random.Range(0, LandChunks.Length);
+			int markIndex = UnityEngine.Random.Range(0, Landmarks.Length);
 			if (landIndex == 2)
 			{
 				markIndex = 6;
