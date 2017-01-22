@@ -44,7 +44,7 @@ public class ChunkLoader : MonoBehaviour
 	public void Spawn()
 	{
 		int landIndex = UnityEngine.Random.Range(0, LandChunks.Length);
-		int markIndex = UnityEngine.Random.Range(0, Landmarks.Length);
+		int markIndex = UnityEngine.Random.Range(1, Landmarks.Length);
 		if (landIndex == 2)
 		{
 			markIndex = 0;
