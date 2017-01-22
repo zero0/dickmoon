@@ -41,28 +41,57 @@ public class ChunkLoader : MonoBehaviour
 		}
 	}
 
+	public void Spawn()
+	{
+		int landIndex = UnityEngine.Random.Range(0, LandChunks.Length);
+		int markIndex = UnityEngine.Random.Range(0, Landmarks.Length);
+		if (landIndex == 2)
+		{
+			markIndex = 0;
+		}
+
+		Spawn(LandChunks[landIndex]);
+		Spawn(Landmarks[markIndex]);
+		angleAtLastPlace = EarthRoot.rotation;
+
+		numSpawns ++;
+
+		if (numSpawns > SPAWNS_BEFORE_CLEANUP)
+		{
+			Cleanup(cleanupQueue.Dequeue());
+			Cleanup(cleanupQueue.Dequeue());
+		}
+	}
+
+	protected void Prewarm()
+	{
+		for (int i = 0; i < SPAWNS_BEFORE_CLEANUP; i++)
+		{
+			Spawn();
+			EarthRoot.transform.Rotate(0f, 0f, -ANGLE_BETWEEN_CHUNKS);
+		}
+		Stack<Transform> reverseOrder = new Stack<Transform>();
+		while (cleanupQueue.Count > 0)
+		{
+			reverseOrder.Push(cleanupQueue.Dequeue());
+		}
+		while (reverseOrder.Count > 0)
+		{
+			cleanupQueue.Enqueue(reverseOrder.Pop());
+		}
+		angleAtLastPlace = EarthRoot.transform.rotation;
+	}
+
+	public void Start()
+	{
+		Prewarm();
+	}
+
 	public void Update()
 	{
 		if (Quaternion.Angle(angleAtLastPlace, EarthRoot.rotation) > ANGLE_BETWEEN_CHUNKS)
 		{
-			int landIndex = UnityEngine.Random.Range(0, LandChunks.Length);
-			int markIndex = UnityEngine.Random.Range(0, Landmarks.Length);
-			if (landIndex == 2)
-			{
-				markIndex = 0;
-			}
-
-			Spawn(LandChunks[landIndex]);
-			Spawn(Landmarks[markIndex]);
-			angleAtLastPlace = EarthRoot.rotation;
-
-			numSpawns ++;
-
-			if (numSpawns > SPAWNS_BEFORE_CLEANUP)
-			{
-				Cleanup(cleanupQueue.Dequeue());
-				Cleanup(cleanupQueue.Dequeue());
-			}
+			Spawn();
 		}
 	}
 }
