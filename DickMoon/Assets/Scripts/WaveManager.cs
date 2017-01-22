@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 public class WaveManager : MonoBehaviour
@@ -51,9 +51,8 @@ public class WaveManager : MonoBehaviour
             _waveSpawnTimer -= Time.deltaTime;
         }
 
-        if( Input.GetKeyDown( KeyCode.W ) )
+        if( Input.GetMouseButtonDown(0) )
         {
-            //if( TryMoonPlanetIntersection( moon.transform.position, moon.transform.right, waveCenter.position, 3000, out p, out n ) )
             if( _canFireWave )
             {
                 SpawnWave( transform.position, waveCenter, 300, 2, 4, false);
