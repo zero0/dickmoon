@@ -95,7 +95,7 @@ public class WaterSimulationSpace : MonoBehaviour
         }
     }
 
-    protected void Update()
+    protected void LateUpdate()
     {
         if( centerOfGravity == null ) return;
         Vector3 cog = centerOfGravity.localPosition;
@@ -171,7 +171,7 @@ public class WaterSimulationSpace : MonoBehaviour
             ParticleSystem.Particle p = _particleBuff[ i ];
 
             Vector3 pos = (p.position);
-            Vector3 dir = Vector3.Normalize(cog - pos);
+            Vector3 cogDir = (cog - pos).normalized;
             Vector3 vel = Vector3.zero;
 
             int x, y;
@@ -203,9 +203,9 @@ public class WaterSimulationSpace : MonoBehaviour
                 continue;
             }
 
-            vel += dir * _densityGrid[x, y];
+            //vel += nepos.x * _densityGrid[x, y];
 
-            p.velocity = vel + _pressureGrid[x, y] + dir * gravity.magnitude * Time.deltaTime;
+            p.velocity = vel + _pressureGrid[x, y] + cogDir * gravity.magnitude * Time.deltaTime;
 
             pos.z = 0;
             p.position = pos;
