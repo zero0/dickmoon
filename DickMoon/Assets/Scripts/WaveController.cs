@@ -42,8 +42,6 @@ public class WaveController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        Debug.Log("Collision Enter " + gameObject.name + " -> " + coll.gameObject.name);
-
         coll.gameObject.SendMessage("HitByWave", waveHeight, SendMessageOptions.DontRequireReceiver);
 
         waveHeight -= 1;
