@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 [Serializable]
 public class Spawnable
@@ -10,12 +11,16 @@ public class Spawnable
 
 public class ChunkLoader : MonoBehaviour
 {
-	public static readonly float ANGLE_BETWEEN_CHUNKS = Mathf.PI / 6f * Mathf.Rad2Deg;
+	public static readonly float ANGLE_BETWEEN_CHUNKS = Mathf.PI / 12f * Mathf.Rad2Deg;
+	public static readonly int SPAWNS_BEFORE_CLEANUP = 15;
 
 	public Transform EarthRoot;
 	public Transform ReferencePoint;
 	public Spawnable[] LandChunks;
 	public Spawnable[] Landmarks;
+
+	protected int numSpawns = 0;
+	protected Queue<Transform> cleanupQueue = new Queue<Transform>();
 
 	protected Quaternion angleAtLastPlace = Quaternion.identity;
 
@@ -25,15 +30,31 @@ public class ChunkLoader : MonoBehaviour
 		t.SetParent(EarthRoot, false);
 		t.position = ReferencePoint.transform.position;
 		t.rotation = Quaternion.identity;
+		cleanupQueue.Enqueue(t);
 	}
 
 	public void Update()
 	{
 		if (Quaternion.Angle(angleAtLastPlace, EarthRoot.rotation) > ANGLE_BETWEEN_CHUNKS)
 		{
-			Spawn(LandChunks[0]);
-			Spawn(Landmarks[0]);
+			int landIndex = UnityEngine.Random.Range(0, 3);
+			int markIndex = UnityEngine.Random.Range(0, 6);
+			if (landIndex == 2)
+			{
+				markIndex = 6;
+			}
+
+			Spawn(LandChunks[landIndex]);
+			Spawn(Landmarks[markIndex]);
 			angleAtLastPlace = EarthRoot.rotation;
+
+			numSpawns ++;
+
+			if (numSpawns > SPAWNS_BEFORE_CLEANUP)
+			{
+				GameObject.Destroy(cleanupQueue.Dequeue().gameObject);
+				GameObject.Destroy(cleanupQueue.Dequeue().gameObject);
+			}
 		}
 	}
 }

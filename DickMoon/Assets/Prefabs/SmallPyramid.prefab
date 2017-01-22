@@ -9,10 +9,8 @@ GameObject:
   m_Component:
   - 224: {fileID: 22403812}
   - 222: {fileID: 22225906}
-  - 114: {fileID: 114000010035446164}
-  - 61: {fileID: 61000010032032034}
   m_Layer: 5
-  m_Name: LargePyramid
+  m_Name: SmallPyramid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54,7 +52,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: dfd50876c01084008a5d1d946cbce06b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f37345b1ccea4f0383d7f5a619703ff, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -108,7 +106,7 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 167, y: 0}
+  m_AnchoredPosition: {x: 191, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &100100000
@@ -122,29 +120,3 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 121122}
   m_IsPrefabParent: 1
---- !u!61 &61000010032032034
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121122}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_Offset: {x: 190.6, y: -50}
-  serializedVersion: 2
-  m_Size: {x: 236.5, y: 315.11}
---- !u!114 &114000010035446164
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 121122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c766f30cfa485d4499d8603f31e7b912, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 5
