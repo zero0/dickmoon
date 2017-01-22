@@ -55,7 +55,7 @@ public class WaveManager : MonoBehaviour
             //Vector3 p, n;
             //if( TryMoonPlanetIntersection( moon.transform.position, moon.transform.right, waveCenter.position, 3000, out p, out n ) )
             //{
-                SpawnWave( transform.position, waveCenter, 300, 2, 4);
+                SpawnWave( transform.position, waveCenter, 300, 2, 4, false);
             //}
         }
     }
