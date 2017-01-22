@@ -3,6 +3,7 @@ using System.Collections;
 
 public class WaterSimulationSpace : MonoBehaviour
 {
+#if false
     public ParticleSystem waterParticleView;
 
     public Transform centerOfGravity;
@@ -298,4 +299,5 @@ public class WaterSimulationSpace : MonoBehaviour
 
         //imm.EndImmediate();
     }
+#endif
 }
