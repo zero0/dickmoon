@@ -3,7 +3,8 @@ using System.Collections;
 
 public class MoonController : MonoBehaviour
 {
-	public static readonly float MAX_HEIGHT = 300f;
+	// FIX THIS BASED ON CANVAS SCALER
+	public static readonly float MAX_HEIGHT = 875f;
 	public static readonly float MIN_HEIGHT = 100f;
 	public static readonly float MAX_VERTICAL_SPEED = 200f;
 	public static readonly float LERP_TIME = 0.4f;
