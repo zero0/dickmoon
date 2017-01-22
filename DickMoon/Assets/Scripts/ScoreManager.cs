@@ -24,7 +24,7 @@ public class ScoreManager : MonoBehaviour
 	public static void MakeScore(int score, string notifText)
 	{
 		Score += score;
-		instance.ScorePanel.text = Score.ToString();
+		instance.ScorePanel.text = Score.ToString( "N0" );
 		instance.FlyupPrefab.ScoreNotif.text = notifText;
 		instance.FlyupPrefab.ScoreNotif.enabled = true;
 		instance.expiryTime = READ_TIME;
