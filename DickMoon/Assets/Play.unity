@@ -620,6 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlyupPrefab: {fileID: 1822248768}
   ScorePanel: {fileID: 1566635677}
+  scoreTextAnimSpeed: 10
 --- !u!1 &711525150
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,6 +1053,7 @@ MonoBehaviour:
   - Prefab: {fileID: 128478, guid: 66ceb4c2b53ff4ba9beb52dda07125f4, type: 2}
   - Prefab: {fileID: 128478, guid: 15ae50472e86b4174a199f30326572ba, type: 2}
   - Prefab: {fileID: 128478, guid: fb935c26eab134444bd58daa5dfe40f8, type: 2}
+  - Prefab: {fileID: 128478, guid: 323e8d587a3c14613985ab54a76dfe55, type: 2}
   WaterLandmarks:
   - Prefab: {fileID: 121122, guid: 73bf44b56c91d432c90701e48aff4973, type: 2}
   Landmarks:
