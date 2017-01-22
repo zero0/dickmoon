@@ -86,6 +86,7 @@ public class ChunkLoader : MonoBehaviour
 		{
 			cleanupQueue.Enqueue(reverseOrder.Pop());
 		}
+		EarthRoot.transform.Rotate(0f, 0f, -ANGLE_BETWEEN_CHUNKS);
 		angleAtLastPlace = EarthRoot.transform.rotation;
 	}
 

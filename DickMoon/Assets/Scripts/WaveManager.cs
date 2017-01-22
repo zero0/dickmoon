@@ -10,7 +10,7 @@ public class WaveManager : MonoBehaviour
     public ChunkLoader chunkLoader;
 
     private float _waveSpawnTimer = 0;
-    private bool _canFireWave = false;
+    private int _waterRefCount = 0;
 
     public bool SpawnWave( Vector3 position, Transform pivot, float speed, float lifetime, float waveHeight, bool bothDirections )
     {
@@ -52,7 +52,7 @@ public class WaveManager : MonoBehaviour
 
         if( Input.GetMouseButtonDown(0) )
         {
-            if( _canFireWave )
+			if( _waterRefCount > 0 )
             {
                 SpawnWave( transform.position, waveCenter, 300, 2, 4, false);
             }
@@ -142,11 +142,11 @@ public class WaveManager : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D coll)
     {
-        _canFireWave = true;
+		_waterRefCount ++;
     }
 
     void OnTriggerExit2D(Collider2D coll)
     {
-        _canFireWave = false;
+		_waterRefCount --;
     }
 }
