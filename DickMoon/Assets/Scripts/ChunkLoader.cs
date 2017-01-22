@@ -101,4 +101,12 @@ public class ChunkLoader : MonoBehaviour
 			Spawn();
 		}
 	}
+
+    public void OnDestroy()
+    {
+        while( cleanupQueue.Count > 0 )
+        {
+            Cleanup(cleanupQueue.Dequeue());
+        }
+    }
 }

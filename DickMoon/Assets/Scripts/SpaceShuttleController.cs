@@ -16,6 +16,7 @@ public class SpaceShuttleController : MonoBehaviour {
 	protected IEnumerator WaitThenLose()
 	{
 		yield return new WaitForSeconds(1f);
-		SceneManager.LoadScene("Lose");
+        SceneManager.LoadScene("Lose");
+        Time.timeScale = 1f;
 	}
 }
