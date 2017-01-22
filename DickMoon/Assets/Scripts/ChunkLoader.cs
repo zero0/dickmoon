@@ -29,12 +29,16 @@ public class ChunkLoader : MonoBehaviour
 
 	protected Quaternion angleAtLastPlace = Quaternion.identity;
 
-	protected void Spawn(Spawnable s)
+	protected void Spawn(Spawnable s, bool isWedge)
 	{
 		Transform t = GameObject.Instantiate<GameObject>(s.Prefab).transform;
 		t.SetParent(EarthRoot, false);
 		t.position = ReferencePoint.transform.position;
 		t.rotation = Quaternion.identity;
+		if (isWedge)
+		{
+			t.localScale = Vector3.one * 0.95f;
+		}
 		cleanupQueue.Enqueue(t);
 	}
 
@@ -49,7 +53,7 @@ public class ChunkLoader : MonoBehaviour
 	public void Spawn()
 	{
 		Spawnable wedge;
-		Spawnable landmark = Landmarks[0];;
+		Spawnable landmark = Landmarks[0];
 		if (UnityEngine.Random.Range(0f, 1f) < WATER_CHANCE)
 		{
 			wedge = WaterChunks[UnityEngine.Random.Range(0, WaterChunks.Length)];
@@ -67,8 +71,8 @@ public class ChunkLoader : MonoBehaviour
 			}
 		}
 
-		Spawn(wedge);
-		Spawn(landmark);
+		Spawn(wedge, true);
+		Spawn(landmark, false);
 		angleAtLastPlace = EarthRoot.rotation;
 
 		numSpawns ++;
