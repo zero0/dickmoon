@@ -25,18 +25,15 @@ public class WaveManager : MonoBehaviour
         go2.transform.position = position;
 
         WaveController w1 = go1.GetComponent<WaveController>();
-        WaveController w2 = go1.GetComponent<WaveController>();
-
         w1.center = pivot;
-        w2.center = pivot;
-
         w1.lifetime = lifetime;
-        w2.lifetime = lifetime;
-
         w1.waveHeight = waveHeight;
-        w2.waveHeight = waveHeight;
-
         w1.speed = speed;
+
+        WaveController w2 = go2.GetComponent<WaveController>();
+        w2.center = pivot;
+        w2.lifetime = lifetime;
+        w2.waveHeight = waveHeight;
         w2.speed = -speed;
 
         return true;
@@ -54,7 +51,7 @@ public class WaveManager : MonoBehaviour
             Vector3 p, n;
             if( TryMoonPlanetIntersection( moon.transform.position, moon.transform.right, waveCenter.position, 3000, out p, out n ) )
             {
-                SpawnWave( transform.position, waveCenter, 100, 2, 4);
+                SpawnWave( transform.position, waveCenter, 300, 2, 4);
             }
         }
     }

@@ -24,7 +24,14 @@ public class WaveController : MonoBehaviour
         }
 
         // TODO (justin): do we want this?
-        //waveHeight -= heightDecayOverTime * Time.deltaTime;
+        waveHeight -= heightDecayOverTime * Time.deltaTime;
+
+        transform.localScale = Vector3.one * Mathf.Max(0, waveHeight);
+
+        if( waveHeight < 0 )
+        {
+            lifetime = 0;
+        }
 
         lifetime -= Time.deltaTime;
         if (lifetime <= 0f)
@@ -39,6 +46,6 @@ public class WaveController : MonoBehaviour
 
         coll.gameObject.SendMessage("HitByWave", waveHeight, SendMessageOptions.DontRequireReceiver);
 
-        lifetime = 0;
+        waveHeight -= 1;
     }
 }
