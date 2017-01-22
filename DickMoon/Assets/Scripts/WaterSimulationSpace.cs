@@ -11,11 +11,14 @@ public class WaterSimulationSpace : MonoBehaviour
     public int numGridCellX = 10;
     public int numGridCellY = 10;
     public Rect gridArea = new Rect();
+    public Quaternion pullForceDirection = Quaternion.identity;
+    public float pullForce = 0;
+    public bool debugDraw = false;
 
     private Vector2 _gridCellSize = new Vector2();
     private ParticleSystem.Particle[] _particleBuff;
     private Vector3[,] _pressureGrid;
-    private int[,] _numParticlesInGrid;
+    private float[,] _densityGrid;
 
     protected void Start()
     {
@@ -27,7 +30,7 @@ public class WaterSimulationSpace : MonoBehaviour
 
         _particleBuff = new ParticleSystem.Particle[ waterParticleView.maxParticles ];
         _pressureGrid = new Vector3[ gridX, gridY ];
-        _numParticlesInGrid = new int[ gridX, gridY ];
+        _densityGrid = new float[ gridX, gridY ];
 
         Vector3 cog = centerOfGravity.position;
 
@@ -46,25 +49,13 @@ public class WaterSimulationSpace : MonoBehaviour
         int gridX = (int)( gridArea.width / _gridCellSize.x );
         int gridY = (int)( gridArea.height / _gridCellSize.y );
 
-        x = (int)( ( ( pos.x - gridArea.x ) / _gridCellSize.x ) ); /// _gridArea.width ) * _gridCellSize.x );
-        y = (int)( ( ( pos.y - gridArea.y ) / _gridCellSize.y ) ); /// _gridArea.height ) * _gridCellSize.y );
+        x = Mathf.Clamp( (int)( ( pos.x - gridArea.x ) / _gridCellSize.x ), 0, gridX - 1 ); /// _gridArea.width ) * _gridCellSize.x );
+        y = Mathf.Clamp( (int)( ( pos.y - gridArea.y ) / _gridCellSize.y ), 0, gridY - 1 ); /// _gridArea.height ) * _gridCellSize.y );
 
         int index = x + ( y * gridX );
         return index;
     }
-
-    private int GetIndex( Vector3 pos )
-    {
-        int gridX = (int)( gridArea.width / _gridCellSize.x );
-        int gridY = (int)( gridArea.height / _gridCellSize.y );
-
-        int x = (int)( ( ( pos.x - gridArea.x ) / gridArea.width ) * _gridCellSize.x );
-        int y = (int)( ( ( pos.y - gridArea.y ) / gridArea.height ) * _gridCellSize.y );
-
-        int index = x + ( y * gridY );
-        return index;
-    }
-
+    
     private int GetIndex( int x, int y )
     {
         int gridX = (int)( gridArea.width / _gridCellSize.x );
@@ -80,14 +71,14 @@ public class WaterSimulationSpace : MonoBehaviour
         int gridY = (int)(gridArea.height / _gridCellSize.y);
         int pad = 6;
 
-        System.Array.Clear(_numParticlesInGrid, 0, gridX * gridY);
+        System.Array.Clear(_densityGrid, 0, gridX * gridY);
 
         for (int y = 0; y != gridY; ++y)
         {
             for (int x = 0; x != gridX; ++x)
             {
                 int index = GetIndex(x, y);
-                int value = -1;
+                float value = -1;
 
                 if (x < pad || x > gridX - pad - 1)
                 {
@@ -98,7 +89,8 @@ public class WaterSimulationSpace : MonoBehaviour
                     value = 0;
                 }
 
-                _numParticlesInGrid[x,y] = value;
+                _densityGrid[x,y] = value;
+                _pressureGrid[x, y] = (pullForceDirection * Vector3.up) * pullForce;
             }
         }
     }
@@ -106,7 +98,28 @@ public class WaterSimulationSpace : MonoBehaviour
     protected void Update()
     {
         if( centerOfGravity == null ) return;
-        Vector3 cog = centerOfGravity.position;
+        Vector3 cog = centerOfGravity.localPosition;
+
+        if( Input.GetKey( KeyCode.Space ) )
+        {
+            pullForce += 10 * Time.deltaTime;
+        }
+        else
+        {
+            pullForce -= 20 * Time.deltaTime;
+        }
+
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            pullForceDirection *= Quaternion.Euler( 0, 0, 15 * Time.deltaTime );
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            pullForceDirection *= Quaternion.Euler( 0, 0, 15 * -Time.deltaTime );
+        }
+
+        pullForce = Mathf.Clamp(pullForce, 0, 10);
 
         int gridX = (int)( gridArea.width / _gridCellSize.x );
         int gridY = (int)( gridArea.height / _gridCellSize.y );
@@ -117,50 +130,86 @@ public class WaterSimulationSpace : MonoBehaviour
 
         int numParticles = waterParticleView.GetParticles( _particleBuff );
 
-        for( int i = 0; i != numParticles; i++ )
+        for (int i = 0; i != numParticles; i++)
+        {
+            ParticleSystem.Particle p = _particleBuff[i];
+
+            Vector3 pos = (p.position);
+            Vector3 dir = Vector3.Normalize(cog - pos);
+            Vector3 vel = Vector3.zero;
+
+            int x, y;
+            int index = GetIndex(pos, out x, out y);
+            if (index < 0)
+            {
+                continue;
+            }
+            else if (index >= _densityGrid.Length)
+            {
+                continue;
+            }
+
+            try
+            {
+                if (_densityGrid[x, y] < 0)
+                {
+                    continue;
+                }
+                else
+                {
+                    _densityGrid[x, y] += 1;
+                }
+            }
+            catch( System.Exception e )
+            {
+                x = x;
+            }
+        }
+
+        for ( int i = 0; i != numParticles; i++)
         {
             ParticleSystem.Particle p = _particleBuff[ i ];
 
             Vector3 pos = (p.position);
-            Vector3 dir = cog - pos;
-            Vector3 vel = Vector3.Normalize( dir );
+            Vector3 dir = Vector3.Normalize(cog - pos);
+            Vector3 vel = Vector3.zero;
 
             int x, y;
             int index = GetIndex( pos, out x, out y );
             if( index < 0 )
             {
                 index = 0;
-                p.lifetime = -1;
+                p.lifetime = 0;
                 _particleBuff[i] = p;
 
                 continue;
             }
-            else if( index >= _numParticlesInGrid.Length )
+            else if( index >= _densityGrid.Length )
             {
-                index = _numParticlesInGrid.Length - 1;
-                p.lifetime = -1;
+                index = _densityGrid.Length - 1;
+                p.lifetime = 0;
                 _particleBuff[i] = p;
 
                 continue;
             }
 
-            if (_numParticlesInGrid[ x,y ] < 0 )
+            if (_densityGrid[ x,y ] < 0 )
             {
                 vel = Vector3.zero;
-            }
-            else if( _numParticlesInGrid[x, y] == maxParticlesPerCell )
-            {
-                //Vector3 pressureDir = _pressureGrid[ index ];
-                //int pressue = _numParticlesInGrid[ index ];
+                p.velocity = vel;
+                p.lifetime = 0;
+                _particleBuff[i] = p;
 
-                vel += _pressureGrid[x, y] * 5;
-            }
-            else
-            {
-                _numParticlesInGrid[x, y]++;
+                continue;
             }
 
-            p.velocity = vel;// + gravity;
+            vel += dir * _densityGrid[x, y];
+
+            p.velocity = vel + _pressureGrid[x, y] + dir * gravity.magnitude * Time.deltaTime;
+
+            pos.z = 0;
+            p.position = pos;
+            p.lifetime = 1;
 
             _particleBuff[ i ] = p;
         }
@@ -170,7 +219,10 @@ public class WaterSimulationSpace : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        OnDrawDebug();
+        if( debugDraw )
+        {
+            OnDrawDebug();
+        }
     }
 
     private void OnDrawDebug()
@@ -227,10 +279,10 @@ public class WaterSimulationSpace : MonoBehaviour
                     Gizmos.DrawLine( centerPos, centerPos + _pressureGrid[x, y] * 5 );
                     //imm.AddLine(centerPos, centerPos + _pressureGrid[index] * 5, Color.red);
 
-                    int value = _numParticlesInGrid[x, y];
+                    float value = _densityGrid[x, y];
                     if( value < 0 )
                     {
-                        Gizmos.color = Color.black;
+                        Gizmos.color = Color.yellow;
                         Gizmos.DrawWireCube(centerPos, Vector3.one * 2);
                     }
                     else
@@ -240,6 +292,9 @@ public class WaterSimulationSpace : MonoBehaviour
                 }
             }
         }
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(pos, pos + (pullForceDirection * Vector3.up) * pullForce);
 
         //imm.EndImmediate();
     }
