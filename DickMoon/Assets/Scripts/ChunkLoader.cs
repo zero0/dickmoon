@@ -15,11 +15,13 @@ public class ChunkLoader : MonoBehaviour
 	public static readonly int SPAWNS_BEFORE_CLEANUP = 15;
 	public static readonly float WATER_CHANCE = 0.45f;
 	public static readonly float BUILDING_CHANCE = 0.8f;
+	public static readonly float BOAT_CHANCE = 0.1f;
 
 	public Transform EarthRoot;
 	public Transform ReferencePoint;
 	public Spawnable[] WaterChunks;
 	public Spawnable[] LandChunks;
+	public Spawnable[] WaterLandmarks;
 	public Spawnable[] Landmarks;
 
 	protected int numSpawns = 0;
@@ -46,25 +48,27 @@ public class ChunkLoader : MonoBehaviour
 
 	public void Spawn()
 	{
-		int landIndex = UnityEngine.Random.Range(0, LandChunks.Length - 1);
-		int markIndex = UnityEngine.Random.Range(1, Landmarks.Length);
 		Spawnable wedge;
+		Spawnable landmark = Landmarks[0];;
 		if (UnityEngine.Random.Range(0f, 1f) < WATER_CHANCE)
 		{
 			wedge = WaterChunks[UnityEngine.Random.Range(0, WaterChunks.Length)];
-			markIndex = 0;
+			if (UnityEngine.Random.Range(0f, 1f) < BOAT_CHANCE)
+			{
+				landmark = WaterLandmarks[UnityEngine.Random.Range(0, WaterLandmarks.Length)];
+			}
 		}
 		else
 		{
 			wedge = LandChunks[UnityEngine.Random.Range(0, LandChunks.Length)];
-		}
-		if (UnityEngine.Random.Range(0f, 1f) > BUILDING_CHANCE)
-		{
-			markIndex = 0;
+			if (UnityEngine.Random.Range(0f, 1f) < BUILDING_CHANCE)
+			{
+				landmark = Landmarks[UnityEngine.Random.Range(1, Landmarks.Length)];
+			}
 		}
 
 		Spawn(wedge);
-		Spawn(Landmarks[markIndex]);
+		Spawn(landmark);
 		angleAtLastPlace = EarthRoot.rotation;
 
 		numSpawns ++;
