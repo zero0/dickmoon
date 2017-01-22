@@ -14,6 +14,7 @@ public class MonumentController : MonoBehaviour
         if( health <= 0 )
         {
             GameObject.Destroy(gameObject);
+			WaveSound.Play();
 			ScoreManager.MakeScore(score, destroyText);
         }
     }

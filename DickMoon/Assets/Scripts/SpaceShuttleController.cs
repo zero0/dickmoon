@@ -10,6 +10,7 @@ public class SpaceShuttleController : MonoBehaviour {
 		GetComponentInChildren<Image>().enabled = false;
 		ScoreManager.MakeScore(-10000, "OH NO!  Not the space program!");
 		Time.timeScale = 0.3f;
+		WaveSound.Play();
 		StartCoroutine(WaitThenLose());
 	}
 
