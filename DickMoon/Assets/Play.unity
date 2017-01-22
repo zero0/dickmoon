@@ -620,6 +620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   FlyupPrefab: {fileID: 1822248768}
   ScorePanel: {fileID: 1566635677}
+  scoreTextAnimSpeed: 10
 --- !u!1 &711525150
 GameObject:
   m_ObjectHideFlags: 0

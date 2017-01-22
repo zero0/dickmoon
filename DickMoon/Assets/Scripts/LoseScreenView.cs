@@ -22,7 +22,7 @@ public class LoseScreenView : MonoBehaviour
 
     public void OnRestartClicked()
     {
-        ScoreManager.Score = 0; 
+        ScoreManager.ClearScore();
         SceneManager.LoadScene( "Play" );
     }
 }
