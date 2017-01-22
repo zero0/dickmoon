@@ -61,6 +61,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 3
+  score: 1000
+  destroyText: '**GRUMBLE GRUMBLE**'
 --- !u!114 &11481978
 MonoBehaviour:
   m_ObjectHideFlags: 1

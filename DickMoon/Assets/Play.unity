@@ -459,6 +459,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 622653714}
+  - 114: {fileID: 622653715}
   m_Layer: 5
   m_Name: ScoreManager
   m_TagString: Untagged
@@ -485,6 +486,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &622653715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 622653713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f895cdeda6c114814b24a99066f5b033, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FlyupPrefab: {fileID: 1822248768}
+  ScorePanel: {fileID: 1566635677}
 --- !u!1 &1057091212
 GameObject:
   m_ObjectHideFlags: 0
@@ -672,12 +686,10 @@ MonoBehaviour:
   - Prefab: {fileID: 121122, guid: 4d90eb738a3964cc48e60ee5103ee232, type: 2}
   - Prefab: {fileID: 121122, guid: 07a098449d1d04331865f9e2b940f8da, type: 2}
   - Prefab: {fileID: 121122, guid: df300a0883969409d9d6e79870974349, type: 2}
-  - Prefab: {fileID: 121122, guid: 3318ddb75a3ff4bf5978d424d62febf1, type: 2}
+  - Prefab: {fileID: 121122, guid: 7e5e6879f5eb74d1ea2fac327149a294, type: 2}
   - Prefab: {fileID: 121122, guid: 0ae0f582c032140c5b74d225a1c1db67, type: 2}
   - Prefab: {fileID: 121122, guid: b11a0067764f9417781df95bacb14b5b, type: 2}
   - Prefab: {fileID: 121122, guid: 5fefec9c75b31409889b080bf4cb4f53, type: 2}
-  - Prefab: {fileID: 121122, guid: b4979a88d452245ff8f0de1a96f611ed, type: 2}
-  - Prefab: {fileID: 121122, guid: 7e5e6879f5eb74d1ea2fac327149a294, type: 2}
 --- !u!1 &1169166548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1180,7 +1192,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1822248765
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1196,8 +1208,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 30}
+  m_AnchoredPosition: {x: 0, y: 321}
+  m_SizeDelta: {x: 1000, y: 116.92}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1822248766
 MonoBehaviour:
@@ -1249,7 +1261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c71e492d605446ee8d48da7c9fae077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ScoreNotif: {fileID: 0}
+  ScoreNotif: {fileID: 1822248766}
 --- !u!1 &2050144057
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SpaceShuttleController : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
+	public void HitByWave( float waveHeight )
+	{
+		GetComponentInChildren<Image>().enabled = false;
+		ScoreManager.MakeScore(-10000, "OH NO!  Not the space program!");
+		Time.timeScale = 0.3f;
+		StartCoroutine(WaitThenLose());
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	protected IEnumerator WaitThenLose()
+	{
+		yield return new WaitForSeconds(1f);
+		SceneManager.LoadScene("Lose");
 	}
 }
