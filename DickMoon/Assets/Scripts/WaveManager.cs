@@ -7,36 +7,40 @@ public class WaveManager : MonoBehaviour
     public float waveSpawnDelay;
     public Transform waveCenter;
     public Transform moon;
+    public ChunkLoader chunkLoader;
 
     private float _waveSpawnTimer;
 
-    public bool SpawnWave( Vector3 position, Transform pivot, float speed, float lifetime, float waveHeight )
+    public bool SpawnWave( Vector3 position, Transform pivot, float speed, float lifetime, float waveHeight, bool bothDirections )
     {
         if (_waveSpawnTimer > 0) return false;
 
         _waveSpawnTimer = waveSpawnDelay;
 
+        // spawn forward wave
+        CreateWave( position, pivot, -speed, lifetime, waveHeight );
+
+        // spawn backwards wave if needed
+        if( bothDirections )
+        {
+            CreateWave( position, pivot, speed, lifetime, waveHeight );
+        }
+
+        return true;
+    }
+
+    private void CreateWave( Vector3 position, Transform pivot, float speed, float lifetime, float waveHeight )
+    {
         GameObject go1 = GameObject.Instantiate(wavePrefab);
-        GameObject go2 = GameObject.Instantiate(wavePrefab);
 
         go1.transform.SetParent(transform.parent, false);
-        go2.transform.SetParent(transform.parent, false);
         go1.transform.position = position;
-        go2.transform.position = position;
 
         WaveController w1 = go1.GetComponent<WaveController>();
         w1.center = pivot;
         w1.lifetime = lifetime;
         w1.waveHeight = waveHeight;
         w1.speed = speed;
-
-        WaveController w2 = go2.GetComponent<WaveController>();
-        w2.center = pivot;
-        w2.lifetime = lifetime;
-        w2.waveHeight = waveHeight;
-        w2.speed = -speed;
-
-        return true;
     }
 
     protected void Update()
@@ -48,11 +52,11 @@ public class WaveManager : MonoBehaviour
 
 		if( Input.GetMouseButtonDown(0) )
 		{
-            Vector3 p, n;
-            if( TryMoonPlanetIntersection( moon.transform.position, moon.transform.right, waveCenter.position, 3000, out p, out n ) )
-            {
+            //Vector3 p, n;
+            //if( TryMoonPlanetIntersection( moon.transform.position, moon.transform.right, waveCenter.position, 3000, out p, out n ) )
+            //{
                 SpawnWave( transform.position, waveCenter, 300, 2, 4);
-            }
+            //}
         }
     }
 
