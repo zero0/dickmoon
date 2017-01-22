@@ -32,7 +32,7 @@ public class ScoreManager : MonoBehaviour
 
 	public static void MakeScore(int score, string notifText)
 	{
-		Score += score;
+		Score += Mathf.CeilToInt(score * Time.timeScale);
 		if (Time.timeScale != 0.3f)
 		{
 			Time.timeScale = speedMultiplier;
