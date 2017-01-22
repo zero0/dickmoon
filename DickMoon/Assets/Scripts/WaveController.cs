@@ -7,7 +7,7 @@ public class WaveController : MonoBehaviour
     public float lifetime = 5;
     public float speed = 1;
     public float waveHeight = 1;
-	public float decayDelay = 0.3f;
+	public float decayDelay = 0.8f;
     public float heightDecayOverTime = 0;
     public Transform center = null;
     public Image waveImage;

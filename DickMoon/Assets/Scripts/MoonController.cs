@@ -4,10 +4,10 @@ using System.Collections;
 public class MoonController : MonoBehaviour
 {
 	// FIX THIS BASED ON CANVAS SCALER
-	public static readonly float MAX_HEIGHT = 200f;
-	public static readonly float MIN_HEIGHT = 100f;
-	public static readonly float MAX_VERTICAL_SPEED = 200f;
-	public static readonly float LERP_TIME = 0.4f;
+	public static readonly float MAX_HEIGHT = 250f;
+	public static readonly float MIN_HEIGHT = -250f;
+	public static readonly float MAX_VERTICAL_SPEED = 2000f;
+	public static readonly float LERP_TIME = 0.08f;
 
 	protected float speed;
 
@@ -16,7 +16,7 @@ public class MoonController : MonoBehaviour
 	public void Update()
 	{
 		float targetHeight = MAX_HEIGHT;
-		if (Input.GetKey(KeyCode.Space))
+		if (Input.GetMouseButton(0))
 		{
 			targetHeight = MIN_HEIGHT;
 		}
@@ -24,7 +24,5 @@ public class MoonController : MonoBehaviour
 		Vector3 position = transform.localPosition;
 		position.y = Mathf.SmoothDamp(position.y, targetHeight, ref speed, LERP_TIME, MAX_VERTICAL_SPEED);
 		transform.localPosition = position;
-
-        //transform.position = Vector3.SmoothDamp(position, targetHeight * Vector3.one, ref _vel, MAX_VERTICAL_SPEED);
 	}
 }
