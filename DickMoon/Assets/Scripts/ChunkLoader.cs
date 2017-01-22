@@ -33,6 +33,14 @@ public class ChunkLoader : MonoBehaviour
 		cleanupQueue.Enqueue(t);
 	}
 
+	protected void Cleanup(Transform t)
+	{
+		if (t != null)
+		{
+			GameObject.Destroy(t.gameObject);
+		}
+	}
+
 	public void Update()
 	{
 		if (Quaternion.Angle(angleAtLastPlace, EarthRoot.rotation) > ANGLE_BETWEEN_CHUNKS)
@@ -52,8 +60,8 @@ public class ChunkLoader : MonoBehaviour
 
 			if (numSpawns > SPAWNS_BEFORE_CLEANUP)
 			{
-				GameObject.Destroy(cleanupQueue.Dequeue().gameObject);
-				GameObject.Destroy(cleanupQueue.Dequeue().gameObject);
+				Cleanup(cleanupQueue.Dequeue());
+				Cleanup(cleanupQueue.Dequeue());
 			}
 		}
 	}
