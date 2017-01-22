@@ -9,7 +9,9 @@ GameObject:
   m_Component:
   - 224: {fileID: 22403812}
   - 222: {fileID: 22225906}
-  m_Layer: 5
+  - 114: {fileID: 11415632}
+  - 61: {fileID: 6129620}
+  m_Layer: 9
   m_Name: Windmill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26,13 +28,39 @@ GameObject:
   - 224: {fileID: 22451724}
   - 222: {fileID: 22256940}
   - 114: {fileID: 11481978}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &6129620
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121122}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 137.1, y: -35.46}
+  serializedVersion: 2
+  m_Size: {x: 223.79, y: 192}
+--- !u!114 &11415632
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 121122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c766f30cfa485d4499d8603f31e7b912, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 3
 --- !u!114 &11481978
 MonoBehaviour:
   m_ObjectHideFlags: 1
